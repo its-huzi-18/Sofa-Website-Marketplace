@@ -6,7 +6,6 @@ import { AiFillTwitterCircle } from 'react-icons/ai';
 import { IoIosHeartEmpty } from 'react-icons/io';
 import CartManager from '@/app/Component/AddToCart';
 import Link from 'next/link';
-import QuantityUpdater from '@/app/Component/CartQuantity';
 
 interface ProductType{
   _id:string,
@@ -103,7 +102,6 @@ const ProductDetails = async ({params}:{params:{id:string}}) => {
                         <div className="order-3 flex flex-col max-w-full lg:max-w-lg">
                             <h1 className="text-2xl sm:text-4xl font-semibold mb-2">{data.name}</h1>
                             <span className="text-lg sm:text-2xl text-[#9F9F9F]">{data.price}$</span>
-        
                             <div className="flex items-center gap-3 mt-4">
                                 <Image
                                     src="/Images/five-star.png"

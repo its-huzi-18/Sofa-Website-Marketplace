@@ -1,13 +1,13 @@
-'use client';
-import React, { useEffect, useState } from 'react';
-import MainImage from '@/app/Component/MainImage';
-import Features from '../Component/Features';
-import Pagination from '../Component/Pagination';
-import FilteredHead from '../Component/FilteredHead';
-import { client } from '@/sanity/lib/client';
-import { urlFor } from '@/sanity/lib/image';
-import Image from 'next/image';
-import Link from 'next/link';
+"use client";
+import React, { useEffect, useState } from "react";
+import MainImage from "@/app/Component/MainImage";
+import Features from "../Component/Features";
+import Pagination from "../Component/Pagination";
+import FilteredHead from "../Component/FilteredHead";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
+import Image from "next/image";
+import Link from "next/link";
 
 interface ProductType {
   _id: string;
@@ -17,12 +17,12 @@ interface ProductType {
   stockLevel: number;
   category?: string; // Optional in case it's missing
   displayedCount: number; // Number of products being displayed
-  totalCount: number; 
+  totalCount: number;
 }
 
 const Shop = () => {
   const [products, setProducts] = useState<ProductType[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>('default');
+  const [selectedCategory, setSelectedCategory] = useState<string>("default");
   const [filteredProducts, setFilteredProducts] = useState<ProductType[]>([]);
   const [loading, setLoading] = useState<boolean>(true); // Track loading state
 
@@ -43,7 +43,7 @@ const Shop = () => {
         setProducts(fetchedProducts);
         setFilteredProducts(fetchedProducts); // Initialize with all products
       } catch (error) {
-        console.error('Error fetching products:', error);
+        console.error("Error fetching products:", error);
       } finally {
         setLoading(false); // Set loading to false after fetching
       }
@@ -54,7 +54,7 @@ const Shop = () => {
 
   // Filter products based on selected category
   useEffect(() => {
-    if (selectedCategory === 'default') {
+    if (selectedCategory === "default") {
       setFilteredProducts(products);
     } else {
       const filtered = products.filter(
@@ -99,17 +99,22 @@ const Shop = () => {
         ) : (
           <div className="flex items-center justify-center gap-12 flex-wrap">
             {filteredProducts.map((detail) => (
-              <div className="flex flex-col gap-3 hover:shadow-lg shadow-black rounded-md p-4" key={detail._id}>
-                <Link  href={`/DetailPage/${detail._id}`}>
+              <div
+                className="flex flex-col gap-3 hover:shadow-lg shadow-black rounded-md p-4"
+                key={detail._id}
+              >
+                <Link href={`/DetailPage/${detail._id}`}>
                   <Image
-                    src={urlFor(detail.image)?.url() || '/placeholder.png'} // Fallback image
+                    src={urlFor(detail.image)?.url() || "/placeholder.png"} // Fallback image
                     width={300}
                     height={300}
                     alt={detail.name}
                   />
                 </Link>
                 <div className="w-[260px] gap-2 flex flex-col">
-                  <h3 className="font-medium text-[16px] w-[212px]">{detail.name}</h3>
+                  <h3 className="font-medium text-[16px] w-[212px]">
+                    {detail.name}
+                  </h3>
                   <div className="flex justify-between items-center">
                     <h4 className="font-medium">{detail.price}$</h4>
                     <h4>Item: {detail.stockLevel}</h4>
