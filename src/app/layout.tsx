@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-
+import { Suspense } from 'react';
 import { Poppins } from 'next/font/google';
 import Header from "./Component/Header";
 import Footer from "./Component/Footer";
@@ -31,10 +31,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
+      <Suspense fallback={<div>Loading...</div>}>
         <CartProvider>
         <Header />
           {children}
-        </CartProvider>        <Footer />
+        </CartProvider>   
+        </Suspense>  
+           <Footer />
         </body>
     </html>
   );
