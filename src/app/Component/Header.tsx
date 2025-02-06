@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import { BsPerson } from 'react-icons/bs';
 import { CiSearch } from 'react-icons/ci';
 import { IoCartOutline, IoHeartOutline } from 'react-icons/io5';
@@ -51,6 +51,7 @@ const Header = () => {
   };
 
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <div>
       <nav
         className={`relative flex h-[100px] ${
@@ -137,6 +138,7 @@ const Header = () => {
         )}
       </nav>
     </div>
+    </Suspense>
   );
 };
 
