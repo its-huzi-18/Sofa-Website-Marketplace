@@ -8,6 +8,7 @@ import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 interface ProductType {
   _id: string;
@@ -21,6 +22,8 @@ interface ProductType {
 }
 
 const Shop = () => {
+  const searchParams = useSearchParams();
+  const searchQuery = searchParams.get("search")?.toLowerCase() || ""
   const [products, setProducts] = useState<ProductType[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("default");
   const [filteredProducts, setFilteredProducts] = useState<ProductType[]>([]);
@@ -54,16 +57,25 @@ const Shop = () => {
 
   // Filter products based on selected category
   useEffect(() => {
-    if (selectedCategory === "default") {
-      setFilteredProducts(products);
-    } else {
-      const filtered = products.filter(
-        (product) => product.category === selectedCategory
-      );
-      setFilteredProducts(filtered);
-    }
-  }, [selectedCategory, products]);
+    let filtered = products;
 
+    // Apply category filter first
+    if (selectedCategory !== "default") {
+      filtered = filtered.filter((product) => product.category === selectedCategory);
+    }
+
+    // Apply search filter if there's a search query
+    if (searchQuery.trim()) {
+      filtered = filtered.filter((product) =>
+        product.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    setFilteredProducts(filtered);
+  }, [searchQuery, selectedCategory, products]);
+
+  
+  
   // Skeleton Loader Component
   const SkeletonLoader = () => (
     <div className="flex items-center justify-center gap-12 flex-wrap">
