@@ -3,11 +3,12 @@ import { urlFor } from '@/sanity/lib/image';
 import Image from 'next/image';
 import { FaFacebook, FaLinkedin } from 'react-icons/fa';
 import { AiFillTwitterCircle } from 'react-icons/ai';
-import { IoIosHeartEmpty } from 'react-icons/io';
 import CartManager from '@/app/Component/AddToCart';
 import Link from 'next/link';
+import WishlistButton from '@/app/Component/WishList';
 
-interface ProductType{
+
+export interface ProductType{
   _id:string,
   name:string
   image:any
@@ -180,8 +181,7 @@ const ProductDetails = async ({params}:{params:{id:string}}) => {
                 <AiFillTwitterCircle className='text-[24px]'/>
                 </i>
                 <div className='md:ml-32 ml-10'>
-                <IoIosHeartEmpty className='text-[34px] text-red-500' />
-                </div>
+                <WishlistButton product={data} />                </div>
                 </div>
             </div>
         </div>

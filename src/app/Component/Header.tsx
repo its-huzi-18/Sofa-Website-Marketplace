@@ -104,7 +104,7 @@ const Header = () => {
 </form>
 
           </div>
-          <Link href={'/asgaard-sofa'}>
+          <Link href={'/wishlist'}>
             <IoHeartOutline className="text-[24px]" />
           </Link>
           <Link href="/Cart" className="relative">
